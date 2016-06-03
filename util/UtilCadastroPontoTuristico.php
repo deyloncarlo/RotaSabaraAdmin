@@ -6,13 +6,8 @@
 class UtilCadastroPontoTuristico
 {
 	
-	function __construct(argument)
-	{
+	public static function isAlgumCampoNulo($errosUsuario,$nome,$dataNascimento,$descricao,$resumo,$latitude,$longitude,$vetorTipoRota){
 		
-	}
-
-	public function isAlgumCampoNulo($errosUsuario,$nome,$dataNascimento,$descricao,$resumo,$latitude,$longitude,$vetorTipoRota): String{
-
 		if(isset($nome) == false){
 			$errosUsuario .= "Campo de Nome está vazio!";
 		}
@@ -31,7 +26,7 @@ class UtilCadastroPontoTuristico
 		if (isset($longitude)) {
 			$errosUsuario .= "Campo Longitude está vazio!";
 		}
-		if(in_array(1,$vetorTipoRota) == false){
+		if(in_array(true,$vetorTipoRota) == false){
 			$errosUsuario .= "Selecione uma das Classificações!";
 		}
 

@@ -16,26 +16,15 @@
 
         $valido = true;
 
-        include_once 'UtilCadastroPontoTuristico.php';
+        include_once 'util/UtilCadastroPontoTuristico.php';
 
-        UtilCadastroPontoTuristico $utilCadastro = new UtilCadastroPontoTuristico();
+        echo $_POST["ecologica"];
+        
 
-        $utilCadastro->
+        $erroUsuario = UtilCadastroPontoTuristico::isAlgumCampoNulo($erroUsuario, $_POST["nome"], $_POST["dataNascimento"], $_POST["descricao"], $_POST["resumo"], $_POST["latitude"], $_POST["longitude"], array($_POST["ecologica"], $_POST["igreja"], $_POST["museu"], $_POST["culinaria"]));
 
-        if(strlen(utf8_decode($_POST["nome"])) > 254){
-            $erroUsuario .= "Nome muito grande!";
-        }else if (strlen(utf8_decode($_POST["nome"])) < 2) {
-            $erroUsuario .= "Nome muito pequeno!";
-        }else if (substr_count($_POST["dataNascimento"], "//") != 2) {
-            $erroUsuario .= "Data incorreta!";
-        }elseif (strlen(utf8_decode($_POST["Descrição"])) < 10) {
-            $erroUsuario .= "Decrição muito pequena!";
-        }else if (strlen(utf8_decode($_POST["resumo"])) < 10) {
-            $erroUsuario .= "Resumo muito pequeno!";
-        }elseif (isset()) > 100) {
-            $erroUsuario .= "Senha muito grande!";
-        }else if (strlen(utf8_decode($_POST["senha"])) < 6) {
-            $erroUsuario .= "Senha muito pequena!";
+        if(isset($erroUsuario) == true){
+            echo $erroUsuario;
         }else{
                
             // Incluindo neste arquivo a classe de Usuário Administrativo
@@ -122,40 +111,40 @@
                                             <p class="help-block">Selecione uma imagem.</p>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group">q
                                         <label class="control-label col-sm-2">Nome:</label>
                                         <div class="col-sm-9">
-                                            <input class="form-control" type="text" name="nome" placeholder="Ex: Igreja de Nossa Senhora" required></input>
+                                            <input class="form-control" type="text" name="nome" placeholder="Ex: Igreja de Nossa Senhora" ></input>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" >Data Nascimento:</label>
                                         <div class="col-sm-3">
-                                            <input class="form-control" type="date" name="dataNascimento" required></input>
+                                            <input class="form-control" type="date" name="dataNascimento" ></input>
                                         </div>
                                     </div>
                                     <div class="form-group text-center">
                                         <label class="control-label col-sm-2" for="descricao">Descrição:</label>
                                         <div class="col-sm-9">
-                                            <textarea name="descricao" class="form-control" placeholder="Ex: Criado no ano de XXXX, este ponto turístico..." rows="15" required></textarea>
+                                            <textarea name="descricao" class="form-control" placeholder="Ex: Criado no ano de XXXX, este ponto turístico..." rows="15" ></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group text-center">
                                         <label class="control-label col-sm-2" for="resumo">Resumo:</label>
                                         <div class="col-sm-9">
-                                            <textarea name="resumo" class="form-control" placeholder="Ex: Criado no ano de XXXX, este ponto turístico..." rows="5" required></textarea>
+                                            <textarea name="resumo" class="form-control" placeholder="Ex: Criado no ano de XXXX, este ponto turístico..." rows="5" ></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="latitude">Latitude:</label>
                                         <div class="col-sm-9">
-                                            <input class="form-control" type="number" name="latitude" required></input>
+                                            <input class="form-control" type="number" name="latitude" ></input>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="longitude">Longitude:</label>
                                         <div class="col-sm-9">
-                                            <input class="form-control" type="number" name="longitude" required></input>
+                                            <input class="form-control" type="number" name="longitude" ></input>
                                         </div>
                                     </div>
                                     <div class="form-group">
