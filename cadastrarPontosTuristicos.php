@@ -7,8 +7,57 @@
 ?>
 
 <?php
-    
+
+    $valido = false;
+    // Erros que o usuário cometeu
+    $erroUsuario = "";
+
+    if(isset($_REQUEST["validar"]) && $_REQUEST["validar"] == true){
+
+        $valido = true;
+
+        include_once 'UtilCadastroPontoTuristico.php';
+
+        UtilCadastroPontoTuristico $utilCadastro = new UtilCadastroPontoTuristico();
+
+        $utilCadastro->
+
+        if(strlen(utf8_decode($_POST["nome"])) > 254){
+            $erroUsuario .= "Nome muito grande!";
+        }else if (strlen(utf8_decode($_POST["nome"])) < 2) {
+            $erroUsuario .= "Nome muito pequeno!";
+        }else if (substr_count($_POST["dataNascimento"], "//") != 2) {
+            $erroUsuario .= "Data incorreta!";
+        }elseif (strlen(utf8_decode($_POST["Descrição"])) < 10) {
+            $erroUsuario .= "Decrição muito pequena!";
+        }else if (strlen(utf8_decode($_POST["resumo"])) < 10) {
+            $erroUsuario .= "Resumo muito pequeno!";
+        }elseif (isset()) > 100) {
+            $erroUsuario .= "Senha muito grande!";
+        }else if (strlen(utf8_decode($_POST["senha"])) < 6) {
+            $erroUsuario .= "Senha muito pequena!";
+        }else{
+               
+            // Incluindo neste arquivo a classe de Usuário Administrativo
+            include_once 'entidades/UsuarioAdministrativo.php';
+            // Incluindo neste arquivo a classe de conexao do Usuário Administrativo
+            include_once 'conexao/UsuarioAdministrativoDao.php';
+
+            try{
+
+                $usuario = new UsuarioAdministrativo($_POST["nome"], $_POST["genero"], $_POST["permissao"], $_POST["email"], $_POST["usuario"], $_POST["senha"]);
+
+                $conexao = new UsuarioAdministrativoDao();
+                $conexao->inserir($usuario);
+
+            }catch(PDOException $e){
+                echo "Falha: " . $e->getMessage();
+                exit();
+            }
+        }
+    }
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -74,13 +123,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-sm-2" for="nome">Nome:</label>
+                                        <label class="control-label col-sm-2">Nome:</label>
                                         <div class="col-sm-9">
                                             <input class="form-control" type="text" name="nome" placeholder="Ex: Igreja de Nossa Senhora" required></input>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-sm-2" for="dataNascimento">Data Nascimento:</label>
+                                        <label class="control-label col-sm-2" >Data Nascimento:</label>
                                         <div class="col-sm-3">
                                             <input class="form-control" type="date" name="dataNascimento" required></input>
                                         </div>
