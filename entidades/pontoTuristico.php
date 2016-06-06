@@ -23,131 +23,131 @@
 
 		function __construct($nome, $dataDeNascimento, $dataInsercaoSistema, $descricao, $resumo, $caminhoDaFotoDestacada, $latitude, $longitude, $isEcologica, $isReligiosa, $isGastronomica, $isPatrimonial, $isTrilha)
 		{
-			this->nome = $nome;
-			this->dataDeNascimento = $dataDeNascimento;
-			this->dataInsercaoSistema = $dataInsercaoSistema;
-			this->descricao = $descricao;
-			this->resumo = $resumo;
-			this->caminhoDaFotoDestacada = $caminhoDaFotoDestacada;
-			this->latitude = $latitude;
-			this->longitude = $longitude;
-			this->isEcologica = $isEcologica;
-			this->isReligiosa = $isReligiosa;
-			this->isGastronomica = $isGastronomica;
-			this->isPatrimonial = $isPatrimonial;
-			this->isTrilha = $isTrilha;
+			$this->nome = $nome;
+			$this->dataDeNascimento = $dataDeNascimento;
+			$this->dataInsercaoSistema = $dataInsercaoSistema;
+			$this->descricao = $descricao;
+			$this->resumo = $resumo;
+			$this->caminhoDaFotoDestacada = $caminhoDaFotoDestacada;
+			$this->latitude = $latitude;
+			$this->longitude = $longitude;
+			$this->isEcologica = $isEcologica;
+			$this->isReligiosa = $isReligiosa;
+			$this->isGastronomica = $isGastronomica;
+			$this->isPatrimonial = $isPatrimonial;
+			$this->isTrilha = $isTrilha;
 		}
 
 		public getIdPontoTuristico(){
-			return this->idPontoTuristico;
+			return $this->idPontoTuristico;
 		}
 
 		public setIdPontoTuristico($idPontoTuristico){
-			this->idPontoTuristico = $idPontoTuristico
+			$this->idPontoTuristico = $idPontoTuristico
 		}
 
 		public getNome(){
-			return this->nome;
+			return $this->nome;
 		}
 
 		public setNome($nome){
-			this->nome = $nome;
+			$this->nome = $nome;
 		}
 
 		public getDataDeNascimento(){
-			return this->dataDeNascimento;
+			return $this->dataDeNascimento;
 		}
 
 		public setDataDeNascimento($dataDeNascimento){
-			this->dataDeNascimento = $dataDeNascimento;
+			$this->dataDeNascimento = $dataDeNascimento;
 		}
 
 		public getDataInsercaoSistema(){
-			return this->dataInsercaoSistema;
+			return $this->dataInsercaoSistema;
 		}
 
 		public setDataInsercaoSiste($dataInsercaoSistema){
-			this->dataInsercaoSistema = $dataInsercaoSistema;
+			$this->dataInsercaoSistema = $dataInsercaoSistema;
 		}
 
 		public getDescricao(){
-			return this->descricao;
+			return $this->descricao;
 		}
 
 		public setDescricao($descricao){
-			this->descricao = $descricao;
+			$this->descricao = $descricao;
 		}
 
 		public getResumo(){
-			return this->resumo;
+			return $this->resumo;
 		}
 		
 		public setResumo($resumo){
-			this->resumo = $resumo;
+			$this->resumo = $resumo;
 		}		
 
 		public getCaminhoDaFotoDestacada(){
-			return this->caminhoDaFotoDestacada;
+			return $this->caminhoDaFotoDestacada;
 		}
 
 		public setCaminhoDaFotoDestacada($caminhoDaFotoDestacada){
-			this->caminhoDaFotoDestacada = $caminhoDaFotoDestacada;
+			$this->caminhoDaFotoDestacada = $caminhoDaFotoDestacada;
 		}
 
 		public getLatitude(){
-			return this->latitude;
+			return $this->latitude;
 		}
 
 		public setLatitude($latitude){
-			this->latitude;
+			$this->latitude;
 		}
 
 		public getLongitude(){
-			return this->longitude;
+			return $this->longitude;
 		}
 
 		public setLongitude($longitude){
-			this->longitude = $longitude;
+			$this->longitude = $longitude;
 		}
 
 		public getIsEcologica(){
-			return this->isEcologica;
+			return $this->isEcologica;
 		}
 
 		public setIsEcologica($isEcologica){
-			this->isEcologica = $isEcologica;
+			$this->isEcologica = $isEcologica;
 		}
 
 		public getIsReligiosa(){
-			return this->isReligiosa;
+			return $this->isReligiosa;
 		}
 
 		public setIsReligiosa($isReligiosa){
-			this->isReligiosa = $isReligiosa
+			$this->isReligiosa = $isReligiosa
 		}
 
 		public getIsGastronomica(){
-			return this->isGastronomica;
+			return $this->isGastronomica;
 		}
 
 		public setIsGastronomica($isGastronomica){
-			this->isGastronomica = $isGastronomica;
+			$this->isGastronomica = $isGastronomica;
 		}
 
 		public getIsPatrimonial(){
-			return this->isPatrimonial; 
+			return $this->isPatrimonial; 
 		}
 
 		public setIsPatrimonial($isPatrimonial){
-			this->isPatrimonial = $isPatrimonial;
+			$this->isPatrimonial = $isPatrimonial;
 		}
 
 		public getIsTrilha(){
-			return this->isTrilha;
+			return $this->isTrilha;
 		}
 
 		public setIsTrilha($isTrilha){
-			this->isTrilha = $isTrilha; 
+			$this->isTrilha = $isTrilha; 
 		}
 
 	}

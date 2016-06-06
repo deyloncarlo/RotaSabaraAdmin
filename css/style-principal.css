@@ -1,0 +1,36 @@
+body {
+    background-color: #ddd;
+}
+
+#nav-principal {
+    background-color: #fff;
+}
+
+.header-principal {
+    background-color: #eee;
+    margin-bottom: 50px;
+}
+
+.titulo-principal {
+    font-size: 30px;
+    color: #888;
+}
+
+#nav-principal {
+    background-color: #fff;
+    display: block;
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 10; 
+}
+
+.usuario{
+    font-weight: bold;
+    padding: 10px 10px 10px 15px;
+    background-color:  #337ab7;
+    color: #ffffff;
+}

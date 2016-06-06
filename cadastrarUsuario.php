@@ -9,6 +9,7 @@
 <?php
 
     $valido = false;
+
     // Erros que o usuário cometeu
     $erroUsuario = "";
 
@@ -71,26 +72,9 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <style type="text/css">
-            body {
-                background-color: #ddd;
-            }
 
-            #nav-principal {
-                background-color: #fff;
-            }
-
-            .header-principal {
-                background-color: #eee;
-                margin-bottom: 50px;
-            }
-
-            .titulo-principal {
-                font-size: 30px;
-                color: #888;
-            }
-
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/style-principal.css">
+    
     </head>
     <body>
         <div class="container-fluid">
@@ -116,12 +100,6 @@
                         <div class="container-fluid">
                             <div id="formulario">
                                 <form class="form-horizontal" role="form" method="POST" action="?validar=true">
-
-                                <?php
-                                    if($valido == true){
-                                        echo $erroUsuario;
-                                    }
-                                ?>
 
                                     <div class="form-group">
                                         <label class="control-label col-sm-2">Nome:</label>
@@ -181,13 +159,15 @@
                                             <button class="btn btn-default btn-block" type="submit" name="salvar">Salvar</button>
                                         </div>
                                     </div>
+                                    <?php
+                                        if($valido == true){
+                                            echo $erroUsuario;
+                                        }
+                                    ?>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <?php
-                        include_once 'layout/footer.php';
-                    ?>
                 </div>
             </div>
         </div>

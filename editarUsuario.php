@@ -19,26 +19,8 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <style type="text/css">
-            body {
-                background-color: #ddd;
-            }
 
-            #nav-principal {
-                background-color: #fff;
-            }
-
-            .header-principal {
-                background-color: #eee;
-                margin-bottom: 50px;
-            }
-
-            .titulo-principal {
-                font-size: 30px;
-                color: #888;
-            }
-
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/style-principal.css">
     </head>
     <body>
         <div class="container-fluid">
@@ -124,9 +106,6 @@
                             </div>
                         </div>
                     </div>
-                    <?php
-                        include_once 'layout/footer.php';
-                    ?>
                 </div>
             </div>
         </div>

@@ -1,5 +1,8 @@
 <?php
     session_start();
+    /**
+     * Verificando se o usuário está logado, caso contrário ele é enviado para página de login.
+     */
     if($_SESSION["logado"] != true){
         header("Location: areaLogin.php");
         exit;
@@ -9,47 +12,72 @@
 <?php
 
     $valido = false;
+
     // Erros que o usuário cometeu
-    $erroUsuario = "";
+    $erroUsuario = null;
+    $erroImagem = null;
 
     if(isset($_REQUEST["validar"]) && $_REQUEST["validar"] == true){
 
         $valido = true;
 
+        if(isset($_FILES["imagem"])){
+
+            $erroImagem = $_FILES["imagem"]["error"];        
+            $nomeImagem = $_FILES["imagem"]["name"];
+            $tipoImagem = $_FILES["imagem"]["type"];
+            $tamanhoImagem = $_FILES["imagem"]["size"];
+            $nomeTemporarioImagem = $_FILES["imagem"]["tmp_name"];
+
+            if($nomeTemporarioImagem == null && $tamanhoImagem == 0){
+                $erroImagem = "Nenhuma imagem selecionada.";
+            }else{
+
+                /**
+                * Se o valor do $erroImagem for igual a 0, quer dizer que teve sucesso.
+                */
+                if($erroImagem == 0){
+
+                    if(is_uploaded_file($nomeTemporarioImagem)){
+                        if(move_uploaded_file($nomeTemporarioImagem, "uploads/imagem_pontos_turisticos/" . $nomeImagem) == true){
+                            echo "Sucesso!" . "<br>";
+                        }else{
+                            $erroImagem = "Falha ao mover o arquivo.";
+                        }
+                    }else{
+                        $erroImagem = "Erro no envio: arquivo não recebido com sucesso.";
+                    }
+                }else{
+                    $erroImagem = "Erro no envio: " . $erroImagem;
+                }
+            }
+
+        }else{
+            $erroUsuario = "Arquivo enviado não encontrado.";
+        }
+         
         include_once 'util/UtilCadastroPontoTuristico.php';
 
-        echo $_POST["ecologica"];
-        
+        $erroUsuario .= UtilCadastroPontoTuristico::isAlgumCampoNulo($erroUsuario, $_POST["nome"], $_POST["dataNascimento"], $_POST["descricao"], $_POST["resumo"], $_POST["latitude"], $_POST["longitude"], array(isset($_POST["ecologica"]), isset($_POST["igreja"]), isset($_POST["museu"]),isset($_POST["culinaria"])));
 
-        $erroUsuario = UtilCadastroPontoTuristico::isAlgumCampoNulo($erroUsuario, $_POST["nome"], $_POST["dataNascimento"], $_POST["descricao"], $_POST["resumo"], $_POST["latitude"], $_POST["longitude"], array($_POST["ecologica"], $_POST["igreja"], $_POST["museu"], $_POST["culinaria"]));
+        if($erroUsuario == null){
+            try {
 
-        if(isset($erroUsuario) == true){
-            echo $erroUsuario;
-        }else{
-               
-            // Incluindo neste arquivo a classe de Usuário Administrativo
-            include_once 'entidades/UsuarioAdministrativo.php';
-            // Incluindo neste arquivo a classe de conexao do Usuário Administrativo
-            include_once 'conexao/UsuarioAdministrativoDao.php';
+                    include_once 'entidades/pontoTuristico.php';
+                    $dataAtual = new date("d/m/y");
+                    $caminhoDaFotoDestacada = "uploads/imagem_pontos_turisticos/" . $_FILES["imagem"]["name"];
+                    $pontoTuristico = new PontoTuristico($_POST["nome"], $_POST["dataNascimento"], $dataAtual, $_POST["descricao"], $_POST["resumo"], $caminhoDaFotoDestacada, $_POST["latitude"], $_POST["longitude"], $_POST["ecologica"], $_POST["religiosa"], $_POST["gastronomica"], $_POST["patrimonial"], $_POST["trilha"]);
 
-            try{
-
-                $usuario = new UsuarioAdministrativo($_POST["nome"], $_POST["genero"], $_POST["permissao"], $_POST["email"], $_POST["usuario"], $_POST["senha"]);
-
-                $conexao = new UsuarioAdministrativoDao();
-                $conexao->inserir($usuario);
-
-            }catch(PDOException $e){
-                echo "Falha: " . $e->getMessage();
-                exit();
-            }
+               } catch (Exception $e) {
+                   
+               }   
         }
+                
     }
 ?>
 
 <!DOCTYPE html>
 <html>
-
     <head>
         <meta charset="UTF-8">
         <title>Rota Sabará | ADM</title>
@@ -62,34 +90,20 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <style type="text/css">
-            body {
-                background-color: #ddd;
-            }
 
-            #nav-principal {
-                background-color: #fff;
-            }
-
-            .header-principal {
-                background-color: #eee;
-                margin-bottom: 50px;
-            }
-
-            .titulo-principal {
-                font-size: 30px;
-                color: #888;
-            }
-
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/style-principal.css">
     </head>
     <body>
         <div class="container-fluid">
+            <!--
             <?php
             include_once 'layout/header.php';
-            ?>
+            ?> 
+        -->
             <div class="col-sm-9 col-sm-offset-3">
+                
                 <div class="container-fluid">
+                    
                     <!-- CABEÇALHO PRINCIPAL -->
                     <div class="row">
                         <div class="header-principal col-sm-12">
@@ -103,15 +117,25 @@
                     <div class="row">
                         <div class="container-fluid">
                             <div id="formulario">
-                                <form class="form-horizontal" role="form" method="POST" action="?validar=true">
+                                <form enctype="multipart/form-data" class="form-horizontal" role="form" method="POST" action="?validar=true">
+
+                                    <?php 
+                                    if ($valido == true) {
+                                        echo $erroUsuario;
+                                        if($erroImagem != 0){
+                                            echo $erroImagem;
+                                        }
+                                    }
+                                    ?>
+
                                     <div class="form-group">
-                                        <label class="control-label col-sm-2" for="caminhoImagem">Adicionar Imagem:</label>
+                                        <label class="control-label col-sm-2">Adicionar Imagem:</label>
                                         <div class="col-sm-9">
-                                            <input type="file" name="caminhoImagem"></input>
+                                            <input type="file" name="imagem"></input>
                                             <p class="help-block">Selecione uma imagem.</p>
                                         </div>
                                     </div>
-                                    <div class="form-group">q
+                                    <div class="form-group">
                                         <label class="control-label col-sm-2">Nome:</label>
                                         <div class="col-sm-9">
                                             <input class="form-control" type="text" name="nome" placeholder="Ex: Igreja de Nossa Senhora" ></input>
@@ -151,18 +175,21 @@
                                         <label class="control-label col-sm-2">Classificações:</label>
                                         <div class="col-sm-9">
                                             <div class="checkbox">
-                                                
-                                                <label class="control-label col-sm-2" for="igreja">
-                                                    <input type="checkbox" value="igreja" name="igreja">Igreja</input>
+
+                                                <label class="control-label col-sm-2" for="religiosa">
+                                                    <input type="checkbox" value="1" name="religiosa">Igreja</input>
                                                 </label>
                                                 <label class="control-label col-sm-2" for="ecologica">
-                                                    <input type="checkbox" value="ecologica" name="ecologica">Ecológica</input>
+                                                    <input type="checkbox" value="1" name="ecologica">Ecológica</input>
                                                 </label>
-                                                <label class="control-label col-sm-2" for="museu">
-                                                    <input type="checkbox" value="museu" name="museu">Museu</input>
+                                                <label class="control-label col-sm-2" for="patrimonial">
+                                                    <input type="checkbox" value="1" name="patrimonial">Patrimonial</input>
                                                 </label>
-                                                <label class="control-label col-sm-2" for="culinaria">
-                                                    <input type="checkbox" value="culinaria" name="culinaria">Culinária</input>
+                                                <label class="control-label col-sm-2" for="gastronomica">
+                                                    <input type="checkbox" value="1" name="gastronomica">Culinária</input>
+                                                </label>
+                                                <label class="control-label col-sm-2" for="trilha">
+                                                    <input type="checkbox" value="1" name="trilha">Trilha</input>
                                                 </label>
                                             </div>
                                         </div>
@@ -176,9 +203,6 @@
                             </div>
                         </div>
                     </div>
-                    <?php
-                        include_once 'layout/footer.php';
-                    ?>
                 </div>
             </div>
         </div>

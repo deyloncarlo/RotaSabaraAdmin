@@ -1,32 +1,13 @@
 
-<style type="text/css">
-    #nav-principal {
-        background-color: #fff;
-        display: block;
-        position: fixed;
-        top: 0px;
-        bottom: 0px;
-        left: 0px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        z-index: 10; 
-    }
-    
-    .usuario h6{
-     
-    }
-    
-</style>
-
 <header>
 <nav>
     <div id="nav-principal" class="col-sm-3 sidebar">
         <div class="nav nav-stacked">
             <a class="navbar-brand" href="#">Rota Sabará | ADM</a>
         </div>
-        <div class="nav nav-stacked">
+        <div class="nav nav-stacked usuario">
             <?php
-                echo "<h5>". $_SESSION["usuario"] . "</h5>";
+                echo "Bem vindo, ". $_SESSION["usuario"];
             ?>
         </div>
         <ul class="nav nav-tabs nav-pills nav-stacked nav-tabs-justified">

@@ -6,31 +6,31 @@
 class UtilCadastroPontoTuristico
 {
 	
-	public static function isAlgumCampoNulo($errosUsuario,$nome,$dataNascimento,$descricao,$resumo,$latitude,$longitude,$vetorTipoRota){
+	public static function isAlgumCampoNulo($erroUsuario,$nome,$dataNascimento,$descricao,$resumo,$latitude,$longitude,$vetorTipoRota){
 		
-		if(isset($nome) == false){
-			$errosUsuario .= "Campo de Nome está vazio!";
+		if(empty($nome) == true){
+			$erroUsuario .= "Campo de Nome está vazio!";
 		}
-		if (isset($dataNascimento) == false) {
-			$errosUsuario .= "Campo de Data Nascimento está vazio!";
+		if (empty($dataNascimento) == true) {
+			$erroUsuario .= "Campo de Data Nascimento está vazio!";
 		}
-		if (isset($descricao)) {
-			$errosUsuario .= "Campo Descrição está vazio!";
+		if (empty($descricao) == true) {
+			$erroUsuario .= "Campo Descrição está vazio!";
 		}
-		if (isset($resumo)) {
-			$errosUsuario .= "Campo Resumo está vazio!";
+		if (empty($resumo) ==  true) {
+			$erroUsuario .= "Campo Resumo está vazio!";
 		}
-		if (isset($latitude)) {
-			$errosUsuario .= "Campo Latitude está vazio!";
+		if (empty($latitude) == true) {
+			$erroUsuario .= "Campo Latitude está vazio!";
 		}
-		if (isset($longitude)) {
-			$errosUsuario .= "Campo Longitude está vazio!";
+		if (empty($longitude) == true) {
+			$erroUsuario .= "Campo Longitude está vazio!";
 		}
 		if(in_array(true,$vetorTipoRota) == false){
-			$errosUsuario .= "Selecione uma das Classificações!";
+			$erroUsuario .= "Selecione uma das Classificações!";
 		}
 
-		return $errosUsuario;
+		return $erroUsuario;
 	}
 }
 
