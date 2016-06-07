@@ -60,16 +60,22 @@
 
         $erroUsuario .= UtilCadastroPontoTuristico::isAlgumCampoNulo($erroUsuario, $_POST["nome"], $_POST["dataNascimento"], $_POST["descricao"], $_POST["resumo"], $_POST["latitude"], $_POST["longitude"], array(isset($_POST["ecologica"]), isset($_POST["igreja"]), isset($_POST["museu"]),isset($_POST["culinaria"])));
 
-        if($erroUsuario == null){
+        if($erroUsuario == null && $erroImagem == 0){
             try {
 
                     include_once 'entidades/pontoTuristico.php';
+                    include_once 'conexao/PontoTuristicoDao.php';
+
                     $dataAtual = new date("d/m/y");
                     $caminhoDaFotoDestacada = "uploads/imagem_pontos_turisticos/" . $_FILES["imagem"]["name"];
                     $pontoTuristico = new PontoTuristico($_POST["nome"], $_POST["dataNascimento"], $dataAtual, $_POST["descricao"], $_POST["resumo"], $caminhoDaFotoDestacada, $_POST["latitude"], $_POST["longitude"], $_POST["ecologica"], $_POST["religiosa"], $_POST["gastronomica"], $_POST["patrimonial"], $_POST["trilha"]);
 
+                    $conexao = new PontoTuristicoDAO();
+                    $conexao->inserir($pontoTuristico);
+
                } catch (Exception $e) {
-                   
+                   echo "Falha: " . $e->getMessage();
+                   exit();
                }   
         }
                 

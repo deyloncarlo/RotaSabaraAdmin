@@ -41,7 +41,6 @@ class PontoTuristicoDAO extends ConexaoBase
 			echo "Errro ao conectar com o banco: " . $e->getMessage();
 			exit();
 		}
-		$informacao = new ConexaoBase();
 	}
 
 	/**
