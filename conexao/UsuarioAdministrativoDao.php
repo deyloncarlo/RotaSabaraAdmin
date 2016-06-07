@@ -30,6 +30,15 @@ class UsuarioAdministrativoDao extends ConexaoBase
 	 * @var [String]
 	 */
 	private $erroNoBanco;
+	
+	// Na função bindParam das execuções do banco de dados, só é possivel passar variáveis por parâmetro e não funções.
+	public $idUsuarioAdministrativo;
+	public $nome;
+	public $genero;
+	public $permissao;
+	public $email;
+	public $usuario;
+	public $senha;
 
 	function __construct()
 	{
@@ -43,7 +52,6 @@ class UsuarioAdministrativoDao extends ConexaoBase
 			echo "Errro ao conectar com o banco: " . $e->getMessage();
 			exit();
 		}
-		$informacao = new ConexaoBase();
 
 	}
 
@@ -53,34 +61,42 @@ class UsuarioAdministrativoDao extends ConexaoBase
 	 */
 	function inserir($usuarioAdministrativo){
 
+		// Setando as variáveis
+		$this->nome = $usuarioAdministrativo->getNome();
+		$this->genero = $usuarioAdministrativo->getGenero();
+		$this->permissao = $usuarioAdministrativo->getPermissao();
+		$this->email = $usuarioAdministrativo->getEmail();
+		$this->usuario = $usuarioAdministrativo->getUsuario();
+		$this->senha = $usuarioAdministrativo->getSenha();
+
 		$sql = "insert into usuario_administrativo (nome,genero,permissao,email,usuario,senha) values (?,?,?,?,?,?)";
 
 		$stmt = $this->conexao->prepare($sql);
 
-		$stmt->bindParam(1, $usuarioAdministrativo->getNome());
-		$stmt->bindParam(2, $usuarioAdministrativo->getGenero());
-		$stmt->bindParam(3, $$usuarioAdministrativo->getPermissao());
-		$stmt->bindParam(4, $usuarioAdministrativo->getEmail());
-		$stmt->bindParam(5, $usuarioAdministrativo->getUsuario());
-		$stmt->bindParam(6, $usuarioAdministrativo->getSenha());
+		$stmt->bindParam(1, $this->nome);
+		$stmt->bindParam(2, $this->genero);
+		$stmt->bindParam(3, $this->permissao);
+		$stmt->bindParam(4, $this->email);
+		$stmt->bindParam(5, $this->usuario);
+		$stmt->bindParam(6, $this->senha);
 			
 		$stmt->execute();
 
 		if($stmt->errorCode() != "00000"){
-			setErroNobanco("Erro código " . $stmt->errorCode() . ": ");
-			setErroNobanco(implode(", ", $stmt->errorInfo()));
-			echo getErroNoBanco();
+			$this->setErroNoBanco("Erro código " . $stmt->errorCode() . ": ");
+			$this->setErroNoBanco(implode(", ", $stmt->errorInfo()));
+			echo $this->getErroNoBanco();
 		}else{
 			echo "Inserido com sucesso!";
 		}
 
 	}
 
-	public getErroNoBanco(){
+	function getErroNoBanco(){
 		return $this->erroNoBanco;
 	}
 
-	public setErroNobanco($erroNoBanco){
+	function setErroNoBanco($erroNoBanco){
 		$this->erroNoBanco .= $erroNoBanco;
 	}
 	

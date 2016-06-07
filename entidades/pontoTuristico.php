@@ -38,115 +38,115 @@
 			$this->isTrilha = $isTrilha;
 		}
 
-		public getIdPontoTuristico(){
+		function getIdPontoTuristico(){
 			return $this->idPontoTuristico;
 		}
 
-		public setIdPontoTuristico($idPontoTuristico){
-			$this->idPontoTuristico = $idPontoTuristico
+		function setIdPontoTuristico($idPontoTuristico){
+			$this->idPontoTuristico = $idPontoTuristico;
 		}
 
-		public getNome(){
+		function getNome(){
 			return $this->nome;
 		}
 
-		public setNome($nome){
+		function setNome($nome){
 			$this->nome = $nome;
 		}
 
-		public getDataDeNascimento(){
+		function getDataDeNascimento(){
 			return $this->dataDeNascimento;
 		}
 
-		public setDataDeNascimento($dataDeNascimento){
+		function setDataDeNascimento($dataDeNascimento){
 			$this->dataDeNascimento = $dataDeNascimento;
 		}
 
-		public getDataInsercaoSistema(){
+		function getDataInsercaoSistema(){
 			return $this->dataInsercaoSistema;
 		}
 
-		public setDataInsercaoSiste($dataInsercaoSistema){
+		function setDataInsercaoSiste($dataInsercaoSistema){
 			$this->dataInsercaoSistema = $dataInsercaoSistema;
 		}
 
-		public getDescricao(){
+		function getDescricao(){
 			return $this->descricao;
 		}
 
-		public setDescricao($descricao){
+		function setDescricao($descricao){
 			$this->descricao = $descricao;
 		}
 
-		public getResumo(){
+		function getResumo(){
 			return $this->resumo;
 		}
 		
-		public setResumo($resumo){
+		function setResumo($resumo){
 			$this->resumo = $resumo;
 		}		
 
-		public getCaminhoDaFotoDestacada(){
+		function getCaminhoDaFotoDestacada(){
 			return $this->caminhoDaFotoDestacada;
 		}
 
-		public setCaminhoDaFotoDestacada($caminhoDaFotoDestacada){
+		function setCaminhoDaFotoDestacada($caminhoDaFotoDestacada){
 			$this->caminhoDaFotoDestacada = $caminhoDaFotoDestacada;
 		}
 
-		public getLatitude(){
+		function getLatitude(){
 			return $this->latitude;
 		}
 
-		public setLatitude($latitude){
+		function setLatitude($latitude){
 			$this->latitude;
 		}
 
-		public getLongitude(){
+		function getLongitude(){
 			return $this->longitude;
 		}
 
-		public setLongitude($longitude){
+		function setLongitude($longitude){
 			$this->longitude = $longitude;
 		}
 
-		public getIsEcologica(){
+		function getIsEcologica(){
 			return $this->isEcologica;
 		}
 
-		public setIsEcologica($isEcologica){
+		function setIsEcologica($isEcologica){
 			$this->isEcologica = $isEcologica;
 		}
 
-		public getIsReligiosa(){
+		function getIsReligiosa(){
 			return $this->isReligiosa;
 		}
 
-		public setIsReligiosa($isReligiosa){
-			$this->isReligiosa = $isReligiosa
+		function setIsReligiosa($isReligiosa){
+			$this->isReligiosa = $isReligiosa;
 		}
 
-		public getIsGastronomica(){
+		function getIsGastronomica(){
 			return $this->isGastronomica;
 		}
 
-		public setIsGastronomica($isGastronomica){
+		function setIsGastronomica($isGastronomica){
 			$this->isGastronomica = $isGastronomica;
 		}
 
-		public getIsPatrimonial(){
+		function getIsPatrimonial(){
 			return $this->isPatrimonial; 
 		}
 
-		public setIsPatrimonial($isPatrimonial){
+		function setIsPatrimonial($isPatrimonial){
 			$this->isPatrimonial = $isPatrimonial;
 		}
 
-		public getIsTrilha(){
+		function getIsTrilha(){
 			return $this->isTrilha;
 		}
 
-		public setIsTrilha($isTrilha){
+		function setIsTrilha($isTrilha){
 			$this->isTrilha = $isTrilha; 
 		}
 

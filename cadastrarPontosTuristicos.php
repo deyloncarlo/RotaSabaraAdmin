@@ -40,7 +40,7 @@
 
                     if(is_uploaded_file($nomeTemporarioImagem)){
                         if(move_uploaded_file($nomeTemporarioImagem, "uploads/imagem_pontos_turisticos/" . $nomeImagem) == true){
-                            echo "Sucesso!" . "<br>";
+                            
                         }else{
                             $erroImagem = "Falha ao mover o arquivo.";
                         }
@@ -58,25 +58,25 @@
          
         include_once 'util/UtilCadastroPontoTuristico.php';
 
-        $erroUsuario .= UtilCadastroPontoTuristico::isAlgumCampoNulo($erroUsuario, $_POST["nome"], $_POST["dataNascimento"], $_POST["descricao"], $_POST["resumo"], $_POST["latitude"], $_POST["longitude"], array(isset($_POST["ecologica"]), isset($_POST["igreja"]), isset($_POST["museu"]),isset($_POST["culinaria"])));
+        $erroUsuario .= UtilCadastroPontoTuristico::isAlgumCampoNulo($erroUsuario, $_POST["nome"], $_POST["dataNascimento"], $_POST["descricao"], $_POST["resumo"], $_POST["latitude"], $_POST["longitude"], array(isset($_POST["ecologica"]), isset($_POST["religiosa"]), isset($_POST["gastronomica"]), isset($_POST["patrimonial"]),isset($_POST["trilha"])));
 
         if($erroUsuario == null && $erroImagem == 0){
             try {
 
                     include_once 'entidades/pontoTuristico.php';
-                    include_once 'conexao/PontoTuristicoDao.php';
+                    include_once 'conexao/PontosTuristicosDao.php';
 
-                    $dataAtual = new date("d/m/y");
+                    $dataAtual = date("d/m/y");
                     $caminhoDaFotoDestacada = "uploads/imagem_pontos_turisticos/" . $_FILES["imagem"]["name"];
-                    $pontoTuristico = new PontoTuristico($_POST["nome"], $_POST["dataNascimento"], $dataAtual, $_POST["descricao"], $_POST["resumo"], $caminhoDaFotoDestacada, $_POST["latitude"], $_POST["longitude"], $_POST["ecologica"], $_POST["religiosa"], $_POST["gastronomica"], $_POST["patrimonial"], $_POST["trilha"]);
+                    $pontoTuristico = new PontoTuristico($_POST["nome"], $_POST["dataNascimento"], $dataAtual, $_POST["descricao"], $_POST["resumo"], $caminhoDaFotoDestacada, $_POST["latitude"], $_POST["longitude"], isset($_POST["ecologica"]), isset($_POST["religiosa"]), isset($_POST["gastronomica"]), isset($_POST["patrimonial"]),isset($_POST["trilha"]));
 
                     $conexao = new PontoTuristicoDAO();
                     $conexao->inserir($pontoTuristico);
 
-               } catch (Exception $e) {
-                   echo "Falha: " . $e->getMessage();
-                   exit();
-               }   
+            }catch (Exception $e) {
+               echo "Falha: " . $e->getMessage();
+               exit();
+            }   
         }
                 
     }
@@ -101,11 +101,11 @@
     </head>
     <body>
         <div class="container-fluid">
-            <!--
+            
             <?php
-            include_once 'layout/header.php';
+                include_once 'layout/header.php';
             ?> 
-        -->
+
             <div class="col-sm-9 col-sm-offset-3">
                 
                 <div class="container-fluid">
@@ -126,12 +126,19 @@
                                 <form enctype="multipart/form-data" class="form-horizontal" role="form" method="POST" action="?validar=true">
 
                                     <?php 
-                                    if ($valido == true) {
-                                        echo $erroUsuario;
-                                        if($erroImagem != 0){
-                                            echo $erroImagem;
+                                        if ($valido == true) {
+                                            
+                                            if($erroUsuario == null && $erroImagem == 0){
+                                                echo "Ponto Turísticos cadastrado com sucesso.";
+                                            }else{
+                                                if ($erroUsuario != null) {
+                                                    echo $erroUsuario;
+                                                }                                  
+                                                if($erroImagem != 0){
+                                                    echo $erroImagem;
+                                                }    
+                                            }
                                         }
-                                    }
                                     ?>
 
                                     <div class="form-group">
@@ -192,7 +199,7 @@
                                                     <input type="checkbox" value="1" name="patrimonial">Patrimonial</input>
                                                 </label>
                                                 <label class="control-label col-sm-2" for="gastronomica">
-                                                    <input type="checkbox" value="1" name="gastronomica">Culinária</input>
+                                                    <input type="checkbox" value="1" name="gastronomica">Gastronômica</input>
                                                 </label>
                                                 <label class="control-label col-sm-2" for="trilha">
                                                     <input type="checkbox" value="1" name="trilha">Trilha</input>

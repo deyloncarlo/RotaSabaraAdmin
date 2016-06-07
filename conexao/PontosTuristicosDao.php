@@ -4,7 +4,7 @@
 * Classe de comunição com o banco
 */
 include_once 'ConexaoBase.php';
-include_once 'pontoTuristico.php';
+include_once 'entidades/pontoTuristico.php';
 class PontoTuristicoDAO extends ConexaoBase
 {
 
@@ -29,7 +29,23 @@ class PontoTuristicoDAO extends ConexaoBase
 	 */
 	private $erroNoBanco;
 
-	function __construct(argument)
+	// Na função bindParam das execuções do banco de dados, só é possivel passar variáveis por parâmetro e não funções.
+	public $idPontoTuristico;
+	public $nome;
+	public $dataDeNascimento;
+	public $dataInsercaoSistema;
+	public $descricao;
+	public $resumo;
+	public $caminhoDaFotoDestacada;
+	public $latitude;
+	public $longitude;
+	public $isEcologica;
+	public $isReligiosa;
+	public $isGastronomica;
+	public $isPatrimonial;
+	public $isTrilha;
+
+	function __construct()
 	{
 		$informacao = new ConexaoBase();
 
@@ -48,23 +64,39 @@ class PontoTuristicoDAO extends ConexaoBase
 	 * @param  [PontoTuristico] $pontoTuristico [description]
 	 */
 	function inserir($pontoTuristico){
+
+		// Setando as variáveis
+		$this->nome = $pontoTuristico->getNome();
+		$this->dataDeNascimento = $pontoTuristico->getDataDeNascimento();
+		$this->dataInsercaoSistema = $pontoTuristico->getDataInsercaoSistema();
+		$this->descricao = $pontoTuristico->getDescricao();
+		$this->resumo = $pontoTuristico->getResumo();
+		$this->caminhoDaFotoDestacada = $pontoTuristico->getCaminhoDaFotoDestacada();
+		$this->latitude = $pontoTuristico->getLatitude();
+		$this->longitude = $pontoTuristico->getLongitude();
+		$this->isEcologica = $pontoTuristico->getIsEcologica();
+		$this->isReligiosa = $pontoTuristico->getIsReligiosa();
+		$this->isGastronomica = $pontoTuristico->getIsGastronomica();
+		$this->isPatrimonial = $pontoTuristico->getIsPatrimonial();
+		$this->isTrilha = $pontoTuristico->getIsTrilha();
+		
 		$sql = "insert into ponto_turistico (nome,data_nascimento,data_insercao_no_sistema,descricao,resumo,caminho_imagem_destacada,latitude,longitude,isEcologica,isReligiosa,isCulinaria,isPatrimonial,isTrilha) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		$stmt = $this->conexao->prepare($sql);
 
-		$stmt->bindParam(1, $ponto_turistico->getNome());
-		$stmt->bindParam(2, $ponto_turistico->getDataDeNascimento());
-		$stmt->bindParam(3, $ponto_turistico->getDataInsercaoSistema());
-		$stmt->bindParam(4, $ponto_turistico->getDescricao());
-		$stmt->bindParam(5, $ponto_turistico->getResumo());
-		$stmt->bindParam(6, $ponto_turistico->getCaminhoDaFotoDestacada());
-		$stmt->bindParam(7, $ponto_turistico->getLatitude());
-		$stmt->bindParam(8, $ponto_turistico->getLongitude());
-		$stmt->bindParam(9, $ponto_turistico->getIsEcologica());
-		$stmt->bindParam(10, $ponto_turistico->getIsReligiosa());
-		$stmt->bindParam(11, $ponto_turistico->getIsCulinaria());
-		$stmt->bindParam(12, $ponto_turistico->getIsPatrimonial());
-		$stmt->bindParam(13, $ponto_turistico->getIsTrilha());
+		$stmt->bindParam(1, $this->nome);
+		$stmt->bindParam(2, $this->dataInsercaoSistema);
+		$stmt->bindParam(3, $this->dataInsercaoSistema);
+		$stmt->bindParam(4, $this->descricao);
+		$stmt->bindParam(5, $this->resumo);
+		$stmt->bindParam(6, $this->caminhoDaFotoDestacada);
+		$stmt->bindParam(7, $this->latitude);
+		$stmt->bindParam(8, $this->longitude);
+		$stmt->bindParam(9, $this->isEcologica);
+		$stmt->bindParam(10, $this->isReligiosa);
+		$stmt->bindParam(11, $this->isGastronomica);
+		$stmt->bindParam(12, $this->isPatrimonial);
+		$stmt->bindParam(13, $this->isTrilha);
 
 		$stmt->execute();
 
@@ -72,24 +104,14 @@ class PontoTuristicoDAO extends ConexaoBase
 			setErroNobanco("Erro código " . $stmt->errorCode() . ": ");
 			setErroNobanco(implode(", ", $stmt->errorInfo()));
 			echo getErroNoBanco();
-		}else{
-			echo "Inserido com sucesso!";
 		}
 	}
 
-	public altera(){
-
-	}
-
-	public busca(){
-		
-	}
-
-	public getErroNoBanco(){
+	function getErroNoBanco(){
 		return $this->erroNoBanco;
 	}
 
-	public setErroNobanco($erroNoBanco){
+	function setErroNobanco($erroNoBanco){
 		$this->erroNoBanco .= $erroNoBanco;
 	}
 }
