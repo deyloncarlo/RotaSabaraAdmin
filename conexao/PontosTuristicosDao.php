@@ -5,6 +5,7 @@
 */
 include_once 'ConexaoBase.php';
 include_once 'entidades/pontoTuristico.php';
+
 class PontoTuristicoDAO extends ConexaoBase
 {
 
@@ -104,6 +105,32 @@ class PontoTuristicoDAO extends ConexaoBase
 			setErroNobanco("Erro código " . $stmt->errorCode() . ": ");
 			setErroNobanco(implode(", ", $stmt->errorInfo()));
 			echo getErroNoBanco();
+		}
+	}
+
+	/**
+	 * Função que irá buscar os pontos turísticos do banco ou pelo nome ou pelas suas classificações. Função utilizada pela tela
+	 * @return [Array] [retorna um vetor de Pontos Turísticos]
+	 */
+	function buscar($p_sql){
+		$resultSet = $this->conexao->prepare($p_sql);
+
+		$resultadoExecucao = $resultSet->execute();
+
+		$vetorPontosTuristicos = array();
+
+		if($resultadoExecucao == true){
+			while( $pontoTuristico = $resultSet->fetch(PDO::FETCH_OBJ) ){
+					
+				array_push($vetorPontosTuristicos, $pontoTuristico);			
+			}
+
+			return $vetorPontosTuristicos;
+		}
+		else{
+			echo "Falha na busca dos pontos turísticos <br>";
+
+			return false;
 		}
 	}
 

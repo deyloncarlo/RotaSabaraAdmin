@@ -18,6 +18,7 @@
                 </a>
                 <ul class="dropdown-menu nav-stacked nav-tabs-justified" >
                     <li><a href="cadastrarPontosTuristicos.php"> Cadastrar</a></li>
+                    <li><a href="visualizarPontosTuristicos.php"> Visualizar </a></li>
                     <li><a href="editarPontosTuristicos.php"> Editar</a></li>
                 </ul>
             </li>

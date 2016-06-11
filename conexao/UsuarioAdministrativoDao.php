@@ -89,7 +89,6 @@ class UsuarioAdministrativoDao extends ConexaoBase
 		}else{
 			echo "Inserido com sucesso!";
 		}
-
 	}
 
 	function getErroNoBanco(){
